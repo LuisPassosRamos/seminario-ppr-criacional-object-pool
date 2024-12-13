@@ -1,0 +1,145 @@
+<!DOCTYPE html><html><head>
+      <title>index</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="seminario-1">seminario-1 </h1>
+<h2 id="markdown">Markdown </h2>
+<ul>
+<li>item</li>
+<li>item</li>
+<li>item</li>
+</ul>
+<ol>
+<li>valor</li>
+<li>valor</li>
+<li>valor</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>title1</th>
+<th>title2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://docs.github.com/pt/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">Markdown</a></p>
+<h2 id="plantuml">Plantuml </h2>
+<p align="center" class="plantuml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentstyletype="text/css" data-diagram-type="CLASS" height="321px" preserveAspectRatio="none" style="width:784px;height:321px;background:#FFFFFF;" version="1.1" viewBox="0 0 784 321" width="784px" zoomAndPan="magnify"><title>Animal example</title><defs></defs><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="126.1846" x="321.9583" y="22.9951">Animal example</text><g id="elem_n1"><path d="M622.94,88.3269 L622.94,113.4597 L777.1011,113.4597 L777.1011,98.3269 L767.1011,88.3269 L622.94,88.3269 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"></path><path d="M767.1011,88.3269 L767.1011,98.3269 L777.1011,98.3269 L767.1011,88.3269 " fill="#FEFFDD" style="stroke:#181818;stroke-width:1;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="133.1611" x="628.94" y="105.3938">From Duck till Zebra</text></g><!--class Animal--><g id="elem_Animal"><rect codeline="3" fill="#F1F1F1" height="113.1875" id="Animal" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="168.9326" x="277.56" y="44.2969"></rect><ellipse cx="333.5532" cy="60.2969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"></ellipse><path d="M336.5219,65.9375 Q335.9438,66.2344 335.3032,66.375 Q334.6625,66.5313 333.9594,66.5313 Q331.4594,66.5313 330.1313,64.8906 Q328.8188,63.2344 328.8188,60.1094 Q328.8188,56.9844 330.1313,55.3281 Q331.4594,53.6719 333.9594,53.6719 Q334.6625,53.6719 335.3032,53.8281 Q335.9594,53.9844 336.5219,54.2813 L336.5219,57 Q335.8969,56.4219 335.3032,56.1563 Q334.7094,55.875 334.0844,55.875 Q332.7407,55.875 332.0532,56.9531 Q331.3657,58.0156 331.3657,60.1094 Q331.3657,62.2031 332.0532,63.2813 Q332.7407,64.3438 334.0844,64.3438 Q334.7094,64.3438 335.3032,64.0781 Q335.8969,63.7969 336.5219,63.2188 L336.5219,65.9375 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4463" x="354.0532" y="65.1436">Animal</text><line style="stroke:#181818;stroke-width:0.5;" x1="278.56" x2="445.4926" y1="76.2969" y2="76.2969"></line><ellipse cx="288.56" cy="89.9453" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.7813" x="297.56" y="93.292">int age</text><ellipse cx="288.56" cy="106.2422" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95.8604" x="297.56" y="109.5889">String gender</text><line style="stroke:#181818;stroke-width:0.5;" x1="278.56" x2="445.4926" y1="116.8906" y2="116.8906"></line><ellipse cx="288.56" cy="130.5391" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142.9326" x="297.56" y="133.8857">boolean isMammal()</text><ellipse cx="288.56" cy="146.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.3203" x="297.56" y="150.1826">void mate()</text></g><!--class Duck--><g id="elem_Duck"><rect codeline="24" fill="#F1F1F1" height="96.8906" id="Duck" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="142.9697" x="207.54" y="217.4869"></rect><ellipse cx="257.0459" cy="233.4869" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"></ellipse><path d="M260.0146,239.1275 Q259.4365,239.4244 258.7959,239.565 Q258.1552,239.7213 257.4521,239.7213 Q254.9521,239.7213 253.624,238.0806 Q252.3115,236.4244 252.3115,233.2994 Q252.3115,230.1744 253.624,228.5181 Q254.9521,226.8619 257.4521,226.8619 Q258.1552,226.8619 258.7959,227.0181 Q259.4521,227.1744 260.0146,227.4713 L260.0146,230.19 Q259.3896,229.6119 258.7959,229.3463 Q258.2021,229.065 257.5771,229.065 Q256.2334,229.065 255.5459,230.1431 Q254.8584,231.2056 254.8584,233.2994 Q254.8584,235.3931 255.5459,236.4713 Q256.2334,237.5338 257.5771,237.5338 Q258.2021,237.5338 258.7959,237.2681 Q259.3896,236.9869 260.0146,236.4088 L260.0146,239.1275 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35.458" x="277.5459" y="238.3336">Duck</text><line style="stroke:#181818;stroke-width:0.5;" x1="208.54" x2="349.5097" y1="249.4869" y2="249.4869"></line><ellipse cx="218.54" cy="263.1353" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116.9697" x="227.54" y="266.482">String beakColor</text><line style="stroke:#181818;stroke-width:0.5;" x1="208.54" x2="349.5097" y1="273.7838" y2="273.7838"></line><ellipse cx="218.54" cy="287.4322" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47.1953" x="227.54" y="290.7789">swim()</text><ellipse cx="218.54" cy="303.7291" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="53.0674" x="227.54" y="307.0757">quack()</text></g><!--class Fish--><g id="elem_Fish"><rect codeline="15" fill="#F1F1F1" height="80.5938" id="Fish" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="119.6182" x="385.22" y="225.6369"></rect><ellipse cx="426.999" cy="241.6369" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"></ellipse><path d="M429.9677,247.2775 Q429.3896,247.5744 428.749,247.715 Q428.1083,247.8712 427.4052,247.8712 Q424.9052,247.8712 423.5771,246.2306 Q422.2646,244.5744 422.2646,241.4494 Q422.2646,238.3244 423.5771,236.6681 Q424.9052,235.0119 427.4052,235.0119 Q428.1083,235.0119 428.749,235.1681 Q429.4052,235.3244 429.9677,235.6212 L429.9677,238.34 Q429.3427,237.7619 428.749,237.4962 Q428.1552,237.215 427.5302,237.215 Q426.1865,237.215 425.499,238.2931 Q424.8115,239.3556 424.8115,241.4494 Q424.8115,243.5431 425.499,244.6212 Q426.1865,245.6837 427.5302,245.6837 Q428.1552,245.6837 428.749,245.4181 Q429.3427,245.1369 429.9677,244.5587 L429.9677,247.2775 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28.1094" x="446.9498" y="246.4836">Fish</text><line style="stroke:#181818;stroke-width:0.5;" x1="386.22" x2="503.8382" y1="257.6369" y2="257.6369"></line><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="393.22" y="268.2853"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93.6182" x="405.22" y="274.632">int sizeInFeet</text><line style="stroke:#181818;stroke-width:0.5;" x1="386.22" x2="503.8382" y1="281.9338" y2="281.9338"></line><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="393.22" y="292.5822"></rect><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58.9873" x="405.22" y="298.9289">canEat()</text></g><!--class Zebra--><g id="elem_Zebra"><rect codeline="19" fill="#F1F1F1" height="80.5938" id="Zebra" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="106.6572" x="481.7" y="60.5969"></rect><ellipse cx="511.6542" cy="76.5969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1;"></ellipse><path d="M514.6229,82.2375 Q514.0448,82.5344 513.4042,82.675 Q512.7635,82.8312 512.0604,82.8312 Q509.5604,82.8312 508.2323,81.1906 Q506.9198,79.5344 506.9198,76.4094 Q506.9198,73.2844 508.2323,71.6281 Q509.5604,69.9719 512.0604,69.9719 Q512.7635,69.9719 513.4042,70.1281 Q514.0604,70.2844 514.6229,70.5812 L514.6229,73.3 Q513.9979,72.7219 513.4042,72.4562 Q512.8104,72.175 512.1854,72.175 Q510.8417,72.175 510.1542,73.2531 Q509.4667,74.3156 509.4667,76.4094 Q509.4667,78.5031 510.1542,79.5812 Q510.8417,80.6437 512.1854,80.6437 Q512.8104,80.6437 513.4042,80.3781 Q513.9979,80.0969 514.6229,79.5187 L514.6229,82.2375 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41.4258" x="528.9773" y="81.4436">Zebra</text><line style="stroke:#181818;stroke-width:0.5;" x1="482.7" x2="587.3572" y1="92.5969" y2="92.5969"></line><ellipse cx="492.7" cy="106.2453" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80.6572" x="501.7" y="109.592">bool is_wild</text><line style="stroke:#181818;stroke-width:0.5;" x1="482.7" x2="587.3572" y1="116.8937" y2="116.8937"></line><ellipse cx="492.7" cy="130.5422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34.4258" x="501.7" y="133.8889">run()</text></g><g id="elem_GMN8"><path d="M6,230.6669 L6,301.1981 A0,0 0 0 0 6,301.1981 L172.0503,301.1981 A0,0 0 0 0 172.0503,301.1981 L172.0503,269.9269 L207.05,265.9269 L172.0503,261.9269 L172.0503,240.6669 L162.0503,230.6669 L6,230.6669 A0,0 0 0 0 6,230.6669 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"></path><path d="M162.0503,230.6669 L162.0503,240.6669 L172.0503,240.6669 L162.0503,230.6669 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"></path><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="43.3672" x="12" y="247.7338">can fly</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61.166" x="12" y="262.8666">can swim</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55.0405" x="12" y="277.9994">can dive</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="145.0503" x="12" y="293.1322">can help in debugging</text></g><!--reverse link Animal to Duck--><g id="link_Animal_Duck"><path d="M325.5244,173.5882 C315.6644,192.9582 312.86,198.4669 303.35,217.1369 " fill="none" id="Animal-backto-Duck" style="stroke:#181818;stroke-width:1;"></path><polygon fill="none" points="333.69,157.5469,320.1773,170.8663,330.8715,176.31,333.69,157.5469" style="stroke:#181818;stroke-width:1;"></polygon></g><!--reverse link Animal to Zebra--><g id="link_Animal_Zebra"><path codeline="28" d="M464.84,100.8969 C476.32,100.8969 469.8,100.8969 481.28,100.8969 " fill="none" id="Animal-backto-Zebra" style="stroke:#181818;stroke-width:1;"></path><polygon fill="none" points="446.84,100.8969,464.84,106.8969,464.84,94.8969,446.84,100.8969" style="stroke:#181818;stroke-width:1;"></polygon></g><!--reverse link Animal to Fish--><g id="link_Animal_Fish"><path codeline="31" d="M398.5222,173.5899 C409.8322,195.8199 414.45,204.8769 424.8,225.2069 " fill="none" id="Animal-backto-Fish" style="stroke:#181818;stroke-width:1;"></path><polygon fill="none" points="390.36,157.5469,393.1746,176.3106,403.8699,170.8691,390.36,157.5469" style="stroke:#181818;stroke-width:1;"></polygon></g><!--SRC=[XL6nJiGm3Dtp5TOjW507rXCB0YhTmCI6a93RkgrLDob9UbSu-7VI98WJ0sHodlFydbyyUw4jt6WUKO0M72SXfOqds9JMZ70trmDu5e4dgYnk01teArKBEfTfHmNXNBBsW1sbowEth3leI3Ta4mILCKAeWTq3Ze5tVf4RUyCDZEWf89_gR4ABWD2JHLqZj5oZXGXMo8l9sj4OBJue_3AIjIl2uTQ8oVBkmEEtukkCzH35qgoINP_8nRg5utVQwPB89wn6VO_-v7sCuhZsqhnrix3Mou6bIOYTTNn_OZQbAjJwBOI9qChRirwBrLcg6jvJgdgI2JWWLCrT5zPHV-LYGB0nAl_YzKUH78BwFymVJX5Z-080]--></g></svg></p><p><a href="https://plantuml.com/class-diagram">PlantUML Class Diagram</a></p>
+<h2 id="mermaid">Mermaid </h2>
+<div align="center" class="mermaid">---
+title: Animal example
+---
+classDiagram
+    note "From Duck till Zebra"
+    Animal &lt;|-- Duck
+    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+
+</div><p><a href="https://mermaid.js.org/syntax/classDiagram.html">Mermaid Class Diagram</a></p>
+<h2 id="markdown-preview-enhanced">Markdown Preview Enhanced </h2>
+<p><a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/">Markdown Preview Enhanced</a></p>
+<p></p><pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Classe</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-int">int</span> numero<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p></p>
+<h3 id="html-export">HTML Export </h3>
+<p><a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/html?id=html-export">html-export</a></p>
+<p>Right click at the preview, click HTML tab.<br>
+Then choose:</p>
+<p>HTML (offline) Choose this option if you are only going to use this html file locally.<br>
+HTML (cdn hosted) Choose this option if you want to deploy your html file remotely.</p>
+<p><img src="https://user-images.githubusercontent.com/1908863/28200455-d5a12d60-6831-11e7-8572-91d3845ce8cf.png" alt="screen shot 2017-07-14 at 1 14 28 am"></p>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>
