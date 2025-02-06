@@ -3,119 +3,222 @@ export_on_save:
   html: true
 ---
 
-# seminario-1
+# Object Pool (Padrão Criacional)
 
-## Markdown
+## Intenção
 
+Gerenciar a criação, armazenamento, emprestimo, retomada e reutilização de instancias de objeto, com o objetivo de controlar a quantidade de instancias existentes ou previnir o processo de criação e destruição recorentes quando estes forem considerados caros.
 
-- item
-- item
-- item
+## Também conhecido como
 
+Pool de recursos
 
+## Motivação
 
-1. valor
-2. valor
-3. valor
+Para se comunicar com um banco de dados, é necessario estabelecer uma "conexão" com ele:
 
-| title1 | title2 |
-| ------ | ------ |
-| a      | b      |
+```java
+Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/meu_banco",
+                "usuario",
+                "senha" )
 
+Statement statement = connection.createStatement();
 
-[Markdown](https://docs.github.com/pt/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+ResultSet resultSet = statement.executeQuery("SELECT id, nome FROM clientes");
+```
 
-## Plantuml
+Em uma aplicação como um sistema web, onde varias requisições chegam o tempo todo, e para cada requisição é comum termos que acessar o banco de dados uma ou mais vezes, nesse caso, para cada acesso precisariamos instanciar a conexão.
 
-```plantuml {align="center"}
+```plantuml
 @startuml
-title: Animal example
-note "From Duck till Zebra" as n1
-class Animal{
-    +int age
-    +String gender
-    + boolean isMammal()
-    + void mate()
-}
-'para a heranca ficar para baixo
-class Duck extends Animal{
-    +String beakColor
-    +swim()
-    +quack()
-}
-class Fish{
-    -int sizeInFeet
-    -canEat()
-}
-class Zebra{    
-    +bool is_wild
-    +run()
-}
+actor Client
+participant "Web Server" as Server
+participant "Database" as DB
 
-class Duck
-note left: can fly\ncan swim\ncan dive\ncan help in debugging
-
-'para a heranca ficar para o lado
-Animal <|- Zebra 
-
-'para a heranca ficar para baixo
-Animal <|-- Fish 
+Client -> Server: HTTP Request
+Server -> Server: Instantiate Connection
+Server -> DB: Query Data
+DB --> Server: Return Data
+Server -> Server: Destroy Connection
+Server --> Client: HTTP Response
 
 @enduml
 ```
-[PlantUML Class Diagram](https://plantuml.com/class-diagram)
+![FluxoSemPool](./images/FluxoSemPool.png)
 
-## Mermaid
+Isso rapidamente apresenta um problema, estabelecer uma conexão com banco de dados é um processo relativamente caro e demorado, é necessario a realização de diversas etapas tanto no servidor de banco quanto no cliente que está se conectando. Além disso, servidores de banco de dados possuem um numero maximo de conexões simultaneas que ele pode manter.
 
-```mermaid {align="center"}
----
-title: Animal example
----
-classDiagram
-    note "From Duck till Zebra"
-    Animal <|-- Duck
-    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
-    Animal <|-- Fish
-    Animal <|-- Zebra
-    Animal : +int age
-    Animal : +String gender
-    Animal: +isMammal()
-    Animal: +mate()
-    class Duck{
-        +String beakColor
-        +swim()
-        +quack()
-    }
-    class Fish{
-        -int sizeInFeet
-        -canEat()
-    }
-    class Zebra{
-        +bool is_wild
-        +run()
+Em um cenario em que por exemplo uma aplicação receba 1000 requisições/s, e para cada requisição sejam necessarias em media 2 consultas ao banco de dados, isso significa que estariamos instanciando e destruindo 2000 conexões por segundo, um numero que facilmente extrapolaria o limite de conexões de um banco de dados.
+
+Em vez disso, usando o pattern de object pool, podemos implementar uma classe que sirva como pool de conexões, dessa forma, ao precisarmos de uma conexão solicitamos ao pool, que ira nos fornecer uma conexão já existente que foi inicializada com o pool. Ao terminamos de usar a conexão, devolvemos ela ao pool.
+
+
+```plantuml
+@startuml
+actor Client
+participant "Web Server Endpoint" as Server
+participant "Connection Pool" as Pool
+participant "Database" as DB
+
+Pool -> DB: Connection Pool Initialization
+DB --> Pool: Connection Instances
+Client -> Server: HTTP Request
+Server -> Pool: Request Connection
+Pool --> Server: Provide Connection
+Server -> DB: Query Data
+DB --> Server: Return Data
+Server -> Pool: Return Connection
+Server --> Client: HTTP Response
+
+@enduml
+```
+![FluxoSemPool](./images/FluxoComPool.png)
+
+
+## Aplicabilidade
+
+Use object pool quando:
+
+- For **demorado** criar uma instancia
+- For **caro** em recursos criar uma instancia
+- For **demorado** destruir uma instancia
+- For **caro** em recursos destruir uma instancia
+
+- Existe um **limite** de quantas instancias possam existir simultaneamente
+
+Com **recursos**, queremos dizer por exemplo cpu, ram, disco e rede por exemplo
+
+Não use object pool quando:
+
+- O **custo** de **manter** a instancia, mesmo quando não está sendo usada, supera o custo de instanciala.
+
+## Estrutura
+
+
+```plantuml
+@startuml
+left to right direction
+interface PoolInterface {
+    + acquire(): Object
+    + release(Object): void
+}
+
+interface PooledObjectFactoryInterface {
+    + createObject(): Object
+}
+
+class PoolConcrete implements PoolInterface {
+    - PooledObjectFactoryInterface factory
+    + acquire(): Object
+    + release(Object): void
+}
+
+class ObjectFactoryConcrete implements PooledObjectFactoryInterface {
+    + createObject(): Object
+}
+
+class Client {
+    - PoolInterface pool
+    + usePool(): void
+}
+
+PoolConcrete --> ObjectFactoryInterface : uses
+Client --> PoolInterface : interacts with
+@enduml
+```
+![Texto alternativo](./images/Estrutura.png)
+
+## Participantes
+
+- **PoolInterface**
+    - Define uma interface comum para todas as implementações de classes de pool de objetos
+- **ObjectFactoryInterface** 
+    - Define uma interface comum para todas as implementações de classes fabricas de objetos que seram guardadas em pool.
+- **Client**
+   - Aquele que necessita das instancias do objeto que sera guardado em pool.
+
+## Implementação
+
+- Implementação de um pool
+
+```java
+package com.example.implementations.simple;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.interfaces.PoolInterface;
+import com.example.interfaces.PooledObjectFactory;
+
+public class SimplePool<T> implements PoolInterface<T> {
+    private List<T> instanciasLivres; 
+    private List<T> instanciasEmUso;  
+    private PooledObjectFactory<T> factory;
+
+    public SimplePool(int size, PooledObjectFactory<T> factory) {
+        this.factory = factory;
+        this.instanciasLivres = new ArrayList<>();
+        this.instanciasEmUso = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            instanciasLivres.add(factory.create());
+        }
     }
 
+    @Override
+    public T acquire() {
+        if (!instanciasLivres.isEmpty()) {
+            T instance = instanciasLivres.remove(0);  
+            instanciasEmUso.add(instance);  
+            return instance;
+        }
+        return null;
+    }
+
+    @Override
+    public void release(T instance) {
+        if (instanciasEmUso.remove(instance)) {
+            instanciasLivres.add(instance);
+        }
+    }
+
+    @Override
+    public void destroyAll() {
+        for (T instance : instanciasLivres) {
+            factory.destroy(instance);
+        }
+        for (T instance : instanciasEmUso) {
+            factory.destroy(instance);
+        }
+    }
+}
 ```
 
-[Mermaid Class Diagram](https://mermaid.js.org/syntax/classDiagram.html)
+## Exemplo de código
+
+- Uso de um pool
+
+```java
+PoolInterface<CheapObject> pool = new SimplePool<CheapObject>(1, new CheapObjectFactory());
+
+        for (int i = 0; i < 100; i++) {
+            CheapObject cheapObject = pool.acquire();
+            cheapObject.doSomething();
+            pool.release(cheapObject);
+        }
+```
+
+## Usos conhecidos
+
+- Conexões com bancos de dados geralmente são gerenciados por um object pool
+
+- Servidores web e de aplicação implementam um pool de threads para o processamento de requisições
+
+- Em aplicações multithreads, threads de trabalho são gerenciadas por um object pool
+
+## Padrão relacionados
 
 
-## Markdown Preview Enhanced
+## Referências
 
-[Markdown Preview Enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/)
-
-
-@import "src/Classe.java"
-
-### HTML Export
-
-[html-export](https://shd101wyy.github.io/markdown-preview-enhanced/#/html?id=html-export)
-
-
-Right click at the preview, click HTML tab.
-Then choose:
-
-HTML (offline) Choose this option if you are only going to use this html file locally.
-HTML (cdn hosted) Choose this option if you want to deploy your html file remotely.
-
-![screen shot 2017-07-14 at 1 14 28 am](https://user-images.githubusercontent.com/1908863/28200455-d5a12d60-6831-11e7-8572-91d3845ce8cf.png)
