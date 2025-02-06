@@ -45,7 +45,7 @@ Server --> Client: HTTP Response
 
 @enduml
 ```
-![FluxoSemPool](./images/FluxoSemPool.png)
+
 
 Isso rapidamente apresenta um problema, estabelecer uma conexão com banco de dados é um processo relativamente caro e demorado, é necessario a realização de diversas etapas tanto no servidor de banco quanto no cliente que está se conectando. Além disso, servidores de banco de dados possuem um numero maximo de conexões simultaneas que ele pode manter.
 
@@ -53,6 +53,7 @@ Em um cenario em que por exemplo uma aplicação receba 1000 requisições/s, e 
 
 Em vez disso, usando o pattern de object pool, podemos implementar uma classe que sirva como pool de conexões, dessa forma, ao precisarmos de uma conexão solicitamos ao pool, que ira nos fornecer uma conexão já existente que foi inicializada com o pool. Ao terminamos de usar a conexão, devolvemos ela ao pool.
 
+<figure>
 
 ```plantuml
 @startuml
@@ -73,7 +74,8 @@ Server --> Client: HTTP Response
 
 @enduml
 ```
-![FluxoSemPool](./images/FluxoComPool.png)
+
+</figure>
 
 
 ## Aplicabilidade
@@ -127,7 +129,7 @@ PoolConcrete --> ObjectFactoryInterface : uses
 Client --> PoolInterface : interacts with
 @enduml
 ```
-![Texto alternativo](./images/Estrutura.png)
+
 
 ## Participantes
 
@@ -142,62 +144,13 @@ Client --> PoolInterface : interacts with
 
 - Implementação de um pool
 
-```java
-package com.example.implementations.simple;
+@import "objectpool/src/main/java/com/example/implementations/simple/SimplePool.java"
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.interfaces.PoolInterface;
-import com.example.interfaces.PooledObjectFactory;
-
-public class SimplePool<T> implements PoolInterface<T> {
-    private List<T> instanciasLivres; 
-    private List<T> instanciasEmUso;  
-    private PooledObjectFactory<T> factory;
-
-    public SimplePool(int size, PooledObjectFactory<T> factory) {
-        this.factory = factory;
-        this.instanciasLivres = new ArrayList<>();
-        this.instanciasEmUso = new ArrayList<>();
-
-        for (int i = 0; i < size; i++) {
-            instanciasLivres.add(factory.create());
-        }
-    }
-
-    @Override
-    public T acquire() {
-        if (!instanciasLivres.isEmpty()) {
-            T instance = instanciasLivres.remove(0);  
-            instanciasEmUso.add(instance);  
-            return instance;
-        }
-        return null;
-    }
-
-    @Override
-    public void release(T instance) {
-        if (instanciasEmUso.remove(instance)) {
-            instanciasLivres.add(instance);
-        }
-    }
-
-    @Override
-    public void destroyAll() {
-        for (T instance : instanciasLivres) {
-            factory.destroy(instance);
-        }
-        for (T instance : instanciasEmUso) {
-            factory.destroy(instance);
-        }
-    }
-}
-```
 
 ## Exemplo de código
 
 - Uso de um pool
+
 
 ```java
 PoolInterface<CheapObject> pool = new SimplePool<CheapObject>(1, new CheapObjectFactory());
