@@ -2,9 +2,9 @@ package com.example;
 
 import com.example.interfaces.PooledObjectFactory;
 
-public class CheapObjectFactory implements PooledObjectFactory<ExpensiveObject>{
+public class ExpensiveObjectFactory implements PooledObjectFactory<ExpensiveObject>{
 
-    public CheapObjectFactory() {
+    public ExpensiveObjectFactory() {
     }
 
     @Override

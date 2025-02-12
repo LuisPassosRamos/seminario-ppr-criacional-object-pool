@@ -1,9 +1,10 @@
 package com.example;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import com.example.implementations.simple.SimplePool;
 import com.example.interfaces.PoolInterface;
-import java.time.Instant;
-import java.time.Duration;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +14,7 @@ public class Main {
         System.out.println("Start on " + start);
 
         for (int i = 0; i < 100; i++) {
-            CheapObject cheapObject = new CheapObject();
+            ExpensiveObject cheapObject = new ExpensiveObject();
             cheapObject.doSomething();
         }
 
@@ -27,10 +28,10 @@ public class Main {
         start = Instant.now();
         System.out.println("Start on " + start);
 
-        PoolInterface<CheapObject> pool = new SimplePool<>(1, new CheapObjectFactory());
+        PoolInterface<ExpensiveObject> pool = new SimplePool<>(1, new ExpensiveObjectFactory());
 
         for (int i = 0; i < 100; i++) {
-            CheapObject cheapObject = pool.acquire();
+            ExpensiveObject cheapObject = pool.acquire();
             cheapObject.doSomething();
             pool.release(cheapObject);
         }

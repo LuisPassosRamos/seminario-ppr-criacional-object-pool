@@ -1,8 +1,8 @@
 package com.example;
 
-public class CheapObject {
+public class ExpensiveObject {
 
-    public CheapObject() {
+    public ExpensiveObject() {
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
