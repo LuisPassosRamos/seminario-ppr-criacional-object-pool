@@ -10,12 +10,12 @@ public class Main {
     public static void main(String[] args) {
         Instant start = Instant.now();
 
-        System.out.println("100 loop without pool");
+        System.out.println("1000 loop without pool");
         System.out.println("Start on " + start);
 
-        for (int i = 0; i < 100; i++) {
-            ExpensiveObject cheapObject = new ExpensiveObject();
-            cheapObject.doSomething();
+        for (int i = 0; i < 1000; i++) {
+            ExpensiveObject expensiveObject = new ExpensiveObject();
+            expensiveObject.doSomething();
         }
 
         Instant end = Instant.now();
@@ -24,16 +24,16 @@ public class Main {
 
         System.err.println("====================================");
 
-        System.out.println("100 loop with pool");
+        System.out.println("1000 loop with pool");
         start = Instant.now();
         System.out.println("Start on " + start);
 
         PoolInterface<ExpensiveObject> pool = new SimplePool<>(1, new ExpensiveObjectFactory());
 
-        for (int i = 0; i < 100; i++) {
-            ExpensiveObject cheapObject = pool.acquire();
-            cheapObject.doSomething();
-            pool.release(cheapObject);
+        for (int i = 0; i < 1000; i++) {
+            ExpensiveObject expensiveObject = pool.acquire();
+            expensiveObject.doSomething();
+            pool.release(expensiveObject);
         }
         
         end = Instant.now();
