@@ -172,6 +172,152 @@ PoolInterface<CheapObject> pool = new SimplePool<CheapObject>(1, new CheapObject
 
 ## Padrão relacionados
 
+## Outro exemplo
+
+Metáfora: Processador Multinúcleo como um Pool de Objetos
+
+O processador multinúcleo pode ser comparado ao Padrão de Pool de Objetos, onde cada núcleo representa um recurso reutilizável que executa tarefas e depois retorna ao pool para ser reutilizado.
+
+### Participantes 
+
+ObjectPool (Gerenciador de Núcleos) – Gerencia a alocação e liberação de núcleos do processador.
+
+Recurso (Núcleo do Processador) – Cada núcleo é um recurso que pode ser usado para executar tarefas.
+
+Cliente (Sistema Operacional) – O sistema operacional solicita núcleos para processar tarefas e os devolve ao pool quando terminam.
+
+### Plano UML (Diagrama)
+```plantuml
+@startuml
+left to right direction
+
+interface PoolInterface {
+    + acquire(): Object
+    + release(Object): void
+}
+
+interface PooledObjectFactoryInterface {
+    + createObject(): Object
+}
+
+class PoolConcrete implements PoolInterface {
+    - PooledObjectFactoryInterface factory
+    + acquire(): Object
+    + release(Object): void
+}
+
+class ObjectFactoryConcrete implements PooledObjectFactoryInterface {
+    + createObject(): Object
+}
+
+class Client {
+    - PoolInterface pool
+    + usePool(): void
+}
+
+PoolConcrete --> PooledObjectFactoryInterface : uses
+Client --> PoolInterface : interacts with
+
+@enduml
+```
+
+
+### Cenário
+
+Suponha que um processador quad-core (4 núcleos) precisa processar múltiplas tarefas enviadas pelo sistema operacional. Em vez de criar e destruir núcleos repetidamente (o que seria inviável), o sistema operacional usa um Pool de Objetos, onde cada núcleo pode ser reutilizado para diferentes tarefas.
+
+O sistema operacional recebe 8 tarefas para processar.
+
+Ele solicita núcleos ao ObjectPool.
+
+O ObjectPool fornece os 4 núcleos disponíveis.
+
+Os núcleos processam as 4 primeiras tarefas.
+
+Quando uma tarefa termina, o núcleo retorna ao pool e recebe uma nova tarefa.
+
+Esse ciclo continua até que todas as 8 tarefas sejam concluídas.
+
+### Exemplo em Java
+
+```java
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+// Classe que representa um núcleo do processador
+class Nucleo {
+    private final int id;
+
+    public Nucleo(int id) {
+        this.id = id;
+    }
+
+    public void processarTarefa(String tarefa) {
+        System.out.println("Núcleo " + id + " processando: " + tarefa);
+        try {
+            Thread.sleep(1000); // Simula o tempo de processamento
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Núcleo " + id + " concluiu: " + tarefa);
+    }
+}
+
+// Classe que gerencia o pool de núcleos
+class PoolNucleos {
+    private final BlockingQueue<Nucleo> pool;
+
+    public PoolNucleos(int quantidadeNucleos) {
+        pool = new LinkedBlockingQueue<>();
+        for (int i = 1; i <= quantidadeNucleos; i++) {
+            pool.offer(new Nucleo(i)); // Adiciona núcleos ao pool
+        }
+    }
+
+    public Nucleo obterNucleo() throws InterruptedException {
+        return pool.take(); // Obtém um núcleo disponível
+    }
+
+    public void liberarNucleo(Nucleo nucleo) {
+        pool.offer(nucleo); // Retorna o núcleo ao pool
+    }
+}
+
+// Simulação do sistema operacional enviando tarefas para os núcleos
+public class ProcessadorMultinucleo {
+    public static void main(String[] args) {
+        PoolNucleos pool = new PoolNucleos(4); // Criando um processador quad-core
+        String[] tarefas = {"Tarefa A", "Tarefa B", "Tarefa C", "Tarefa D", "Tarefa E", "Tarefa F"};
+
+        for (String tarefa : tarefas) {
+            new Thread(() -> {
+                try {
+                    Nucleo nucleo = pool.obterNucleo();
+                    nucleo.processarTarefa(tarefa);
+                    pool.liberarNucleo(nucleo);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    }
+}
+```
+### Descrição
+
+Esse código simula um processador quad-core que recebe várias tarefas. O Pool de Objetos (classe PoolNucleos) gerencia os núcleos e evita a criação desnecessária de novos recursos, garantindo que os núcleos sejam reutilizados.
+
+O sistema operacional solicita núcleos.
+
+Cada núcleo processa uma tarefa e retorna ao pool.
+
+O processo continua até que todas as tarefas sejam concluídas.
+
+Isso melhora a eficiência e evita desperdício de recursos, assim como um processador multinúcleo faz na vida real.
+
+### Conclusão
+
+O processador multinúcleo se encaixa perfeitamente no Padrão de Pool de Objetos, pois gerencia múltiplos núcleos de forma eficiente, reutilizando recursos em vez de criar novos, exatamente como o pool faz com os objetos.
 
 ## Referências
 
